@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แชท Instagram</title>
+    <style>
+        /* โค้ด CSS ที่สะอาดและอ่านง่าย */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 22px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #0095f6;
+        }
+
+        .chat-list {
+            display: flex;
+            flex-direction: column-reverse;
+            /* สลับลำดับจากล่างขึ้นบน */
+            gap: 10px;
+        }
+
+        .chat-item {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            transition: background 0.2s;
+        }
+
+        .chat-item:hover {
+            background: #f9f9f9;
+        }
+
+        .chat-item a {
+            text-decoration: none;
+            color: #262626;
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>💬 แชท Instagram</h1>
+
+        <!-- ช่องค้นหา -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาชื่อแชท..."
+                onkeyup="filterChats()">
+                
+            <!-- ค้นหาในทุกแชท (Global Search) -->
+            <div style="margin-top: 15px; display: flex; gap: 10px;">
+                <input type="text" id="globalSearchInput" class="search-box" placeholder="🌍 ค้นหาข้อความในทุกแชท..." onkeyup="if(event.key === 'Enter') doGlobalSearch()">
+                <button onclick="doGlobalSearch()" style="padding: 12px 20px; border: none; border-radius: 25px; background: #0095f6; color: white; font-weight: bold; cursor: pointer; white-space: nowrap;">ค้นหาทั้งหมด</button>
+            </div>
+            <div id="globalSearchStatus" style="margin-top: 10px; font-size: 14px; color: #0095f6; font-weight: bold; display: none;">กำลังค้นหา...</div>
+        </div>
+
+        <!-- รายการแชท (ตั้งค่า CSS ให้เรียงจากล่างขึ้นบนแล้ว) -->
+        <div class="chat-list" id="chatList">
+            <div class="chat-item"><a href="inbox/19s07quck_17918906787081568/message_1.html">19s.07quck</a></div>
+            <div class="chat-item"><a href="inbox/a1_17959741455059104/message_1.html">A1</a></div>
+            <div class="chat-item"><a href="inbox/anittawani_17844390813081568/message_1.html">Anitta Wani</a></div>
+            <div class="chat-item"><a href="inbox/fara_17910588285081568/message_1.html">FA RA</a></div>
+            <div class="chat-item"><a href="inbox/fxi_17921119005081568/message_1.html">Fxi</a></div>
+            <div class="chat-item"><a href="inbox/metaai_1947805403604692/message_1.html">Meta AI</a></div>
+            <div class="chat-item"><a href="inbox/muhammadsafiahama_17914663023081568/message_1.html">Muhammad Safia Hama</a></div>
+            <div class="chat-item"><a href="inbox/nousersforthisaccount_1624509992288427/message_1.html">No users for this account.</a></div>
+            <div class="chat-item"><a href="inbox/p_17850157821081568/message_1.html">P</a></div>
+            <div class="chat-item"><a href="inbox/_lxxainev__17913213114081568/message_1.html">_lxxaine.v_</a></div>
+            <div class="chat-item"><a href="inbox/aungax__17920235784081568/message_1.html">aung.ax_</a></div>
+            <div class="chat-item"><a href="inbox/azuq__17918381073081568/message_1.html">azuq._</a></div>
+            <div class="chat-item"><a href="inbox/ffqrxz__17952432765081568/message_1.html">f.fqrxz_</a></div>
+            <div class="chat-item"><a href="inbox/mang_agm_17951229288081568/message_1.html">mang_agm</a></div>
+            <div class="chat-item"><a href="inbox/privatemojixzi_17876381877081568/message_1.html">privatemojixzi</a></div>
+            <div class="chat-item"><a href="inbox/privatemojixziandthichx_25101363269463162/message_1.html">privatemojixzi and Thichx</a></div>
+            <div class="chat-item"><a href="inbox/riauecy_17843212944382795/message_1.html">riauecy</a></div>
+            <div class="chat-item"><a href="inbox/ziexmoo_18013801838698056/message_1.html">ziexmoo</a></div>
+            <div class="chat-item"><a href="inbox/thicha_17855371908081568/message_1.html">ธิชา</a></div>
+            <div class="chat-item"><a href="message_requests/phuchiinstagram_17879018793081568/message_1.html">ผู้ใช้ Instagram</a></div>
+            <div class="chat-item"><a href="inbox/linnohlin_17920449429081568/message_1.html">ลินโนหลิน</a></div>
+            <div class="chat-item"><a href="inbox/skxykhxthankamalxtitinku_9652058371526918/message_1.html">สก๊อยขอทานกำมะลอใต้ตีนกู</a></div>
+            <div class="chat-item"><a href="inbox/sarsasskxy_1964610560826154/message_1.html">สารสาสสก๊อย</a></div>
+            <div class="chat-item"><a href="inbox/pheraafrifaypenmakkwakem_6908234879304328/message_1.html">เพราะฟรีฟายเป็นมากกว่าเกม</a></div>
+            <div class="chat-item"><a href="inbox/21_18007552529693379/message_1.html">๒๑</a></div>
+            <div class="chat-item"><a href="inbox/17888603643081568/message_1.html">ᴘʜᴀᴛ🐶</a></div>
+            <div class="chat-item"><a href="inbox/17908044297081568/message_1.html">₍^. .^₎⟆</a></div>
+            <div class="chat-item"><a href="inbox/ya_17909996292081568/message_1.html">𝔂𝓪</a></div>
+        </div>
+
+        <div id="emptyState" class="empty-state">ไม่พบแชทที่คุณค้นหา...</div>
+    </div>
+
+    <!-- สคริปต์สำหรับการค้นหาแชท -->
+    <script>
+        function filterChats() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let chatItems = document.getElementsByClassName('chat-item');
+            let hasVisible = false;
+
+            for (let i = 0; i < chatItems.length; i++) {
+                let link = chatItems[i].querySelector('a');
+                
+                // เก็บข้อความต้นฉบับไว้ใน attribute data-original-text เพื่อไม่ให้เสียข้อมูลเวลา highlight
+                if (!link.hasAttribute('data-original-text')) {
+                    link.setAttribute('data-original-text', link.innerText);
+                }
+                
+                let originalText = link.getAttribute('data-original-text');
+                let chatName = originalText.toLowerCase();
+
+                if (input === "") {
+                    // กรณีไม่ได้พิมพ์ค้นหา ให้แสดงทั้งหมดและยกเลิก highlight
+                    chatItems[i].style.display = "block";
+                    link.innerHTML = originalText;
+                    hasVisible = true;
+                } else if (chatName.includes(input)) {
+                    // กรณีพบคำค้นหา ให้ไฮไลท์ข้อความ
+                    chatItems[i].style.display = "block";
+                    hasVisible = true;
+                    
+                    // ป้องกัน special characters ใน regex
+                    let escapedInput = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    let regex = new RegExp(`(${escapedInput})`, "gi");
+                    
+                    // แทนที่คำค้นหาด้วยแท็ก <mark> เพื่อไฮไลท์
+                    link.innerHTML = originalText.replace(regex, "<mark style='background-color: #ffeb3b; color: #000; padding: 0 2px; border-radius: 3px;'>$1</mark>");
+                } else {
+                    // กรณีไม่พบ ให้ซ่อนแชทนั้น
+                    chatItems[i].style.display = "none";
+                    link.innerHTML = originalText;
+                }
+            }
+
+            // แสดงข้อความ "ไม่พบแชท" ถ้าหาไม่เจอเลย
+            document.getElementById('emptyState').style.display = hasVisible ? 'none' : 'block';
+        }
+
+        async function doGlobalSearch() {
+            const input = document.getElementById('globalSearchInput').value.trim().toLowerCase();
+            const statusEl = document.getElementById('globalSearchStatus');
+            const chatItems = document.getElementsByClassName('chat-item');
+            
+            if (!input) {
+                statusEl.style.display = 'none';
+                document.getElementById('emptyState').style.display = 'none';
+                // Reset UI
+                for (let i = 0; i < chatItems.length; i++) {
+                    const link = chatItems[i].querySelector('a');
+                    const badge = link.querySelector('.match-badge');
+                    if (badge) badge.remove();
+                    
+                    const snippets = chatItems[i].querySelector('.match-snippets');
+                    if (snippets) snippets.remove();
+                    
+                    // Reset href
+                    let href = link.getAttribute('href');
+                    if (href.includes('?q=')) {
+                        link.setAttribute('href', href.split('?')[0]);
+                    }
+                    chatItems[i].style.display = "block";
+                }
+                return;
+            }
+
+            statusEl.style.display = 'block';
+            statusEl.innerHTML = 'กำลังค้นหา... 0 / ' + chatItems.length;
+            
+            let foundCount = 0;
+
+            for (let i = 0; i < chatItems.length; i++) {
+                statusEl.innerHTML = `กำลังค้นหา... ${i+1} / ${chatItems.length}`;
+                
+                const link = chatItems[i].querySelector('a');
+                let href = link.getAttribute('href').split('?')[0]; // Remove existing query if any
+                
+                try {
+                    const response = await fetch(href);
+                    let html = await response.text();
+                    
+                    // 
+                    
+                    // Simple DOM parser to get text content from messages
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, "text/html");
+                    
+                    // Count matches in message texts
+                    const messages = doc.querySelectorAll('._a6-p');
+                    let matchCount = 0;
+                    let foundSnippets = [];
+                    
+                    messages.forEach(msg => {
+                        const originalText = msg.textContent;
+                        // ไม่นับข้อความที่มี hashtag (#)
+                        if (originalText.includes('#')) return;
+                        
+                        const text = originalText.toLowerCase();
+                        let currentIndex = 0;
+                        while ((currentIndex = text.indexOf(input, currentIndex)) !== -1) {
+                            matchCount++;
+                            if (foundSnippets.length < 10) {
+                                const start = Math.max(0, currentIndex - 20);
+                                const end = Math.min(text.length, currentIndex + input.length + 20);
+                                let snippet = originalText.substring(start, end);
+                                if (start > 0) snippet = "..." + snippet;
+                                if (end < text.length) snippet = snippet + "...";
+                                foundSnippets.push(snippet);
+                            }
+                            currentIndex += input.length;
+                        }
+                    });
+                    
+                    // Clean up old badge and snippets
+                    const oldBadge = link.querySelector('.match-badge');
+                    if (oldBadge) oldBadge.remove();
+                    const oldSnippets = chatItems[i].querySelector('.match-snippets');
+                    if (oldSnippets) oldSnippets.remove();
+                    
+                    if (matchCount > 0) {
+                        chatItems[i].style.display = "block";
+                        
+                        const badge = document.createElement('span');
+                        badge.className = 'match-badge';
+                        badge.style.cssText = 'background: #ff9800; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-left: 10px; font-weight: bold; display: inline-block; vertical-align: middle;';
+                        badge.textContent = `พบ ${matchCount} คำ`;
+                        link.appendChild(badge);
+                        
+                        // Add snippets
+                        const snippetContainer = document.createElement('div');
+                        snippetContainer.className = 'match-snippets';
+                        snippetContainer.style.cssText = 'margin-top: 10px; font-size: 14px; color: #555; background: #f9f9f9; padding: 10px; border-radius: 8px; border-left: 3px solid #0095f6;';
+                        
+                        const escapedInput = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(`(${escapedInput})`, "gi");
+                        
+                        foundSnippets.forEach(snip => {
+                            const p = document.createElement('div');
+                            p.style.marginBottom = '4px';
+                            p.innerHTML = snip.replace(regex, "<mark style='background-color: #ffeb3b; padding: 0 2px;'>$1</mark>");
+                            snippetContainer.appendChild(p);
+                        });
+                        
+                        if (matchCount > 10) {
+                            const more = document.createElement('div');
+                            more.style.fontStyle = 'italic';
+                            more.style.fontSize = '12px';
+                            more.style.color = '#888';
+                            more.style.marginTop = '4px';
+                            more.textContent = `และอีก ${matchCount - 10} ข้อความ...`;
+                            snippetContainer.appendChild(more);
+                        }
+                        
+                        chatItems[i].appendChild(snippetContainer);
+                        
+                        link.setAttribute('href', href + '?q=' + encodeURIComponent(input));
+                        foundCount++;
+                    } else {
+                        chatItems[i].style.display = "none";
+                        link.setAttribute('href', href);
+                    }
+                } catch (e) {
+                    console.error("Error fetching " + href, e);
+                }
+            }
+            
+            statusEl.innerHTML = `✅ ค้นหาเสร็จสิ้น! พบคำว่า "${input}" ใน ${foundCount} แชท`;
+            document.getElementById('emptyState').style.display = foundCount === 0 ? 'block' : 'none';
+        }
+    </script>
+
+</body>
+
+</html>
